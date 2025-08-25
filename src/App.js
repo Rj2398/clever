@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 function App() {
   const clientId = "745ce0e4a98fe44a0b1e"; // your Clever client ID
-  const redirectUri = "https://clever-8mxr.vercel.app/"; // must match Clever dashboard
+  const redirectUri = "https://clever-login.vercel.app"; // must match Clever dashboard
   const backendApi = "https://pmsclmsadmin.tgastaging.com/api/get-clever-token";
   // 👆 change to production API when Laravel is deployed
 
