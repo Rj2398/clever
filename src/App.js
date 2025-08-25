@@ -1,5 +1,6 @@
 // 62bca20aeae1a2c3432128b2
 
+import axios from "axios";
 import React, { useEffect } from "react";
 
 function App() {
@@ -20,24 +21,44 @@ function App() {
     if (code) {
       console.log("Clever returned code:", code);
 
-      // Send code to backend
-      fetch(backendApi, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("Backend response:", data);
-          if (data.user) {
-            alert(`Logged in as: ${JSON.stringify(data.user.data)}`);
+      // Send code to backend using Axios
+      axios
+        .post(backendApi, { code })
+        .then((response) => {
+          console.log("Backend response:", response.data);
+          if (response.data.user) {
+            alert(`Logged in as: ${JSON.stringify(response.data.user.data)}`);
           }
         })
         .catch((err) => console.error("Error sending code to backend:", err));
     }
   }, []);
+
+  // useEffect(() => {
+  //   const params = new URLSearchParams(window.location.search);
+  //   const code = params.get("code");
+
+  //   if (code) {
+  //     console.log("Clever returned code:", code);
+
+  //     // Send code to backend
+  //     fetch(backendApi, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ code }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log("Backend response:", data);
+  //         if (data.user) {
+  //           alert(`Logged in as: ${JSON.stringify(data.user.data)}`);
+  //         }
+  //       })
+  //       .catch((err) => console.error("Error sending code to backend:", err));
+  //   }
+  // }, []);
 
   return (
     <div className="justify-center h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
